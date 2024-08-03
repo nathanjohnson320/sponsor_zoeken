@@ -21,7 +21,6 @@ def get_by_name(db: Session, country: str, name: str):
 def list(
     db: Session, search: str | None, country: str | None, pagination_params: Params
 ):
-    # SELECT name FROM companies WHERE name %> 'marvis' ORDER BY name <<-> 'marvis' ASC;
     query = select(models.Company)
     if search:
         query = query.filter(models.Company.name.op("%>")(search)).order_by(
