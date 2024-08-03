@@ -11,6 +11,11 @@ router = APIRouter()
 
 @router.get("/")
 def get_companies(
-    pagination_params: Params = Depends(), db: Session = Depends(get_db)
+    search: str | None = None,
+    country: str | None = None,
+    pagination_params: Params = Depends(),
+    db: Session = Depends(get_db),
 ) -> Page[CompanyBase]:
-    return companies.list(db, pagination_params)
+    return companies.list(
+        db=db, pagination_params=pagination_params, search=search, country=country
+    )

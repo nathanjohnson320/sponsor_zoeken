@@ -18,8 +18,20 @@ def get_by_name(db: Session, country: str, name: str):
     )
 
 
-def list(db: Session, params: Params):
-    return paginate(db, select(models.Company), params)
+def list(
+    db: Session, search: str | None, country: str | None, pagination_params: Params
+):
+    # SELECT name FROM companies WHERE name %> 'marvis' ORDER BY name <<-> 'marvis' ASC;
+    query = select(models.Company)
+    if search:
+        query = query.filter(models.Company.name.op("%>")(search)).order_by(
+            models.Company.name.op("<->")(search)
+        )
+
+    if country:
+        query = query.filter(models.Company.country == country)
+
+    return paginate(db, query, pagination_params)
 
 
 def create(db: Session, company: schemas.CompanyCreate):
