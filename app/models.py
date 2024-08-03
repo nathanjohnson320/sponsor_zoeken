@@ -15,4 +15,5 @@ class Company(Base):
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     name = Column(String, index=True)
+    country = Column(String(2), index=True)
     meta = Column(JSONB)

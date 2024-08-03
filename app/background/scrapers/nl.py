@@ -1,8 +1,11 @@
 from bs4 import BeautifulSoup
 from app.core.db import get_db
 from app.contexts import companies
+from app.schemas import CompanyCreate
 import urllib.request
 
+
+COUNTRY = "nl"
 
 ind_data = urllib.request.urlopen(
     "https://ind.nl/en/public-register-recognised-sponsors/public-register-regular-labour-and-highly-skilled-migrants"
@@ -25,8 +28,13 @@ for row in table.find_all("tr"):
         organization = organization.string
         kvk_number = meta.string
 
-        company = companies.get_by_name(db, organization)
+        company = companies.get_by_name(db, COUNTRY, organization)
         if not company:
-            companies.create(db, name=organization, meta={"kvk_number": kvk_number})
+            companies.create(
+                db,
+                CompanyCreate(
+                    name=organization, country=COUNTRY, meta={"kvk_number": kvk_number}
+                ),
+            )
 
 print("Done")

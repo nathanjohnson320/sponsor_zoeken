@@ -24,9 +24,11 @@ def upgrade() -> None:
         "companies",
         sa.Column("id", sa.Uuid, primary_key=True),
         sa.Column("name", sa.String(512), nullable=False),
+        sa.Column("country", sa.String(2), nullable=False),
         sa.Column("meta", sa.JSON, nullable=True),
     )
     op.create_index(op.f("ix_companies_name"), "companies", ["name"], unique=True)
+    op.create_index(op.f("ix_companies_country"), "companies", ["country"])
 
 
 def downgrade() -> None:
