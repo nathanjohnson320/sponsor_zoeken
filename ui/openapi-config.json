@@ -1,0 +1,8 @@
+{
+  "schemaFile": "http://localhost:8000/api/v1/openapi.json",
+  "apiFile": "./src/app/store/emptyApi.ts",
+  "apiImport": "emptySplitApi",
+  "outputFile": "./src/app/store/generatedUrlApi.ts",
+  "exportName": "urlApi",
+  "hooks": true
+}

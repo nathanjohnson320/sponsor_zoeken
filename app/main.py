@@ -1,6 +1,9 @@
 from fastapi import FastAPI
-from fastapi.routing import APIRoute
 from fastapi_pagination import add_pagination
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.routing import APIRoute
+from fastapi.staticfiles import StaticFiles
+
 
 from app.core.config import settings
 from app.api.main import api_router
@@ -16,6 +19,21 @@ app = FastAPI(
     generate_unique_id_function=custom_generate_unique_id,
 )
 
+origins = [
+    "http://localhost",
+    "http://localhost:5173",
+]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+
 add_pagination(app)
