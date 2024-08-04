@@ -7,6 +7,10 @@ export default defineConfig({
   server: {
     open: true,
   },
+  build: {
+    outDir: "../static",
+    emptyOutDir: true,
+  },
   test: {
     globals: true,
     environment: "jsdom",
