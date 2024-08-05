@@ -20,7 +20,7 @@ const injectedRtkApi = api.injectEndpoints({
 })
 export { injectedRtkApi as urlApi }
 export type GetApiV1CompaniesApiResponse =
-  /** status 200 Successful Response */ PageCompanyBase
+  /** status 200 Successful Response */ PageCompany
 export type GetApiV1CompaniesApiArg = {
   search?: string | null
   country?: string | null
@@ -29,13 +29,14 @@ export type GetApiV1CompaniesApiArg = {
   /** Page size */
   size?: number
 }
-export type CompanyBase = {
+export type Company = {
   name: string
   country: string
   meta: object
+  id: string
 }
-export type PageCompanyBase = {
-  items: CompanyBase[]
+export type PageCompany = {
+  items: Company[]
   total: number | null
   page: number | null
   size: number | null

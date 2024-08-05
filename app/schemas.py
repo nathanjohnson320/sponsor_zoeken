@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 
 
 class CompanyBase(BaseModel):
@@ -14,7 +14,7 @@ class CompanyCreate(CompanyBase):
 
 
 class Company(CompanyBase):
-    id: int
+    id: UUID4
 
     class ConfigDict:
         from_attributes = True
