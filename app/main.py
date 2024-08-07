@@ -22,6 +22,7 @@ app = FastAPI(
 origins = [
     "http://localhost",
     "http://localhost:5173",
+    "https://sponsor-zoeken.fly.dev",
 ]
 
 app.add_middleware(
@@ -32,8 +33,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(api_router, prefix=settings.API_V1_STR)
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 
 add_pagination(app)
