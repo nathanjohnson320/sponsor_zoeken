@@ -23,7 +23,7 @@ def list(
 ):
     query = select(models.Company)
     if search:
-        query = query.filter(models.Company.name.op("%>")(search)).order_by(
+        query = query.filter(models.Company.name.ilike(f'%{search}%')).order_by(
             models.Company.name.op("<->")(search)
         )
 
